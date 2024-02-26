@@ -5,7 +5,6 @@ using System.Reflection;
 using UnityEngine;
 
 
-//最终
 /// <summary>
 /// PlayerPrefs数据管理类 统一管理数据的存储和读取
 /// </summary>
@@ -16,15 +15,11 @@ public class PlayerPrefsDataManager
 
     public static PlayerPrefsDataManager Instance
     {
-        get
-        {
-            return instance;
-        }
+        get { return instance; }
     }
 
     private PlayerPrefsDataManager()
     {
-
     }
 
     /// <summary>
@@ -32,25 +27,29 @@ public class PlayerPrefsDataManager
     /// </summary>
     /// <param name="data">数据对象</param>
     /// <param name="keyName">数据对象的唯一key 自己控制</param>
-    public void SaveData( object data, string keyName )
+    public void SaveData(object data, string keyName)
     {
         Log("存储自定义类型" + keyName);
         //就是要通过 Type 得到传入数据对象的所有的 字段
         //然后结合 PlayerPrefs来进行存储
 
         #region 第一步 获取传入数据对象的所有字段
+
         //获得传进来的data的Type
         Type dataType = data.GetType();
         //得到dataType的所有字段的数组
         FieldInfo[] infos = dataType.GetFields();
+
         #endregion
 
         #region 第二步 自己定义一个key的规则 进行数据存储
+
         //我们存储都是通过PlayerPrefs来进行存储的
         //保证key的唯一性 我们就需要自己定一个key的规则
 
         //我们自己定一个规则
         // keyName_数据类型_字段类型_字段名
+
         #endregion
 
         #region 第三步 遍历所有字段 进行数据存储
@@ -73,7 +72,7 @@ public class PlayerPrefsDataManager
             //要根据我们定的key的拼接规则 来进行唯一key的生成
             //Player1_PlayerInfo_Int32_age
             saveKeyName = keyName + "_" + dataType.Name +
-                "_" + info.FieldType.Name + "_" + info.Name;
+                          "_" + info.FieldType.Name + "_" + info.Name;
 
             //现在得到了唯一Key 按照我们的规则
             //接下来就要来通过PlayerPrefs来进行存储
@@ -86,14 +85,15 @@ public class PlayerPrefsDataManager
 
         //立即存储
         PlayerPrefs.Save();
+
         #endregion
     }
 
-   /// <summary>
-   /// 存储具体值的方法
-   /// </summary>
-   /// <param name="value">值对象</param>
-   /// <param name="keyName">值对象唯一的key 按自定义规则生成的</param>
+    /// <summary>
+    /// 存储具体值的方法
+    /// </summary>
+    /// <param name="value">值对象</param>
+    /// <param name="keyName">值对象唯一的key 按自定义规则生成的</param>
     private void SaveValue(object value, string keyName)
     {
         //直接通过PlayerPrefs来进行存储了
@@ -136,7 +136,7 @@ public class PlayerPrefsDataManager
         //如何判断 泛型类的类型呢
         //通过反射 IsAssignableFrom方法判断 父子关系
         //这相当于是判断 这个字段是不是IList的子类 是的话基本上就是List类了
-        else if ( typeof(IList).IsAssignableFrom(fieldType) )
+        else if (typeof(IList).IsAssignableFrom(fieldType))
         {
             //父类装子类 把要存储的值对象的类型转成IList在遍历
             IList list = value as IList;
@@ -155,10 +155,9 @@ public class PlayerPrefsDataManager
                 SaveValue(obj, keyName + index);
                 ++index;
             }
-
         }
         //判断是不是Dictionary类型 通过Dictionary的父类IDictionary来判断 和List的判断类似
-        else if ( typeof(IDictionary).IsAssignableFrom(fieldType) )
+        else if (typeof(IDictionary).IsAssignableFrom(fieldType))
         {
             //父类装子类 把要存储的值对象的类型转成IDictionary在遍历
             IDictionary dic = value as IDictionary;
@@ -194,7 +193,7 @@ public class PlayerPrefsDataManager
     /// <param name="type">想要读取数据的 数据类型Type</param>
     /// <param name="keyName">数据对象的唯一key 自己控制</param>
     /// <returns></returns>
-    public object LoadData( Type type, string keyName )
+    public object LoadData(Type type, string keyName)
     {
         Log("读取自定义类型" + keyName);
         //不用object对象传入 而使用 Type传入
@@ -228,7 +227,7 @@ public class PlayerPrefsDataManager
 
             //key的拼接规则 一定是和存储时一模一样 这样才能找到对应数据
             loadKeyName = keyName + "_" + type.Name +
-                "_" + info.FieldType.Name + "_" + info.Name;
+                          "_" + info.FieldType.Name + "_" + info.Name;
 
             //有key 就可以结合 PlayerPrefs来读取数据
             //SetValue方法 赋值数据给对象 填充数据到data对象中 
@@ -248,7 +247,7 @@ public class PlayerPrefsDataManager
     private object LoadValue(Type fieldType, string keyName)
     {
         //根据 字段类型 来判断 用哪个API来读取
-        if( fieldType == typeof(int) )
+        if (fieldType == typeof(int))
         {
             Log("读取int:" + keyName + "值 = " + (PlayerPrefs.GetInt(keyName, 0) - 10));
             //解密 减10
@@ -272,7 +271,7 @@ public class PlayerPrefsDataManager
         }
         //通过反射 IsAssignableFrom方法判断 父子关系
         //这相当于是判断 这个字段是不是IList的子类 是的话基本上就是List类了
-        else if ( typeof(IList).IsAssignableFrom(fieldType) )
+        else if (typeof(IList).IsAssignableFrom(fieldType))
         {
             //得到List长度
             int listCount = PlayerPrefs.GetInt(keyName, 0);
@@ -290,11 +289,12 @@ public class PlayerPrefsDataManager
                 //得到了这个类型后 在递归调用读取List里面具体的值
                 list.Add(LoadValue(fieldType.GetGenericArguments()[0], keyName + i));
             }
+
             return list;
         }
         //通过反射 IsAssignableFrom方法判断 父子关系
         //这相当于是判断 这个字段是不是IDictionary的子类 是的话基本上就是Dictionary类了
-        else if ( typeof(IDictionary).IsAssignableFrom(fieldType) )
+        else if (typeof(IDictionary).IsAssignableFrom(fieldType))
         {
             //得到字典的长度
             int dictionaryCount = PlayerPrefs.GetInt(keyName, 0);
@@ -311,8 +311,9 @@ public class PlayerPrefsDataManager
             for (int i = 0; i < dictionaryCount; i++)
             {
                 dic.Add(LoadValue(kvType[0], keyName + "_key_" + i),
-                         LoadValue(kvType[1], keyName + "_value_" + i));
+                    LoadValue(kvType[1], keyName + "_value_" + i));
             }
+
             return dic;
         }
         //基础数据类型都不是 那么可能就是自定义类型
@@ -321,7 +322,6 @@ public class PlayerPrefsDataManager
             //在走一遍读取自定义内的流程
             return LoadData(fieldType, keyName);
         }
-
     }
 
     /// <summary>
@@ -330,6 +330,6 @@ public class PlayerPrefsDataManager
     /// <param name="message"></param>
     private void Log(object message)
     {
-        Debug.Log("PlayerPrefsDataMgr:"+ message);
+        Debug.Log("PlayerPrefsDataMgr:" + message);
     }
 }
