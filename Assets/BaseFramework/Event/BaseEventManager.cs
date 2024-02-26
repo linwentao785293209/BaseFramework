@@ -1,27 +1,27 @@
 using System.Collections.Generic;
 using UnityEngine.Events;
 
-// ÊÂ¼ş¹ÜÀíÆ÷
+// äº‹ä»¶ç®¡ç†å™¨
 public class BaseEventManager : BaseSingletonInCSharp<BaseEventManager>
 {
-    // key ¡ª¡ª ÊÂ¼şµÄÃû×Ö£¨±ÈÈç£º¹ÖÎïËÀÍö£¬Íæ¼ÒËÀÍö£¬Í¨¹ØµÈµÈ£©
-    // value ¡ª¡ª ¶ÔÓ¦µÄÊÇ¼àÌıÕâ¸öÊÂ¼ş¶ÔÓ¦µÄÎ¯ÍĞº¯ÊıÃÇ
+    // key â€”â€” äº‹ä»¶çš„åå­—ï¼ˆæ¯”å¦‚ï¼šæ€ªç‰©æ­»äº¡ï¼Œç©å®¶æ­»äº¡ï¼Œé€šå…³ç­‰ç­‰ï¼‰
+    // value â€”â€” å¯¹åº”çš„æ˜¯ç›‘å¬è¿™ä¸ªäº‹ä»¶å¯¹åº”çš„å§”æ‰˜å‡½æ•°ä»¬
     private Dictionary<string, IBaseEventListener> baseEventListenerDictionary = new Dictionary<string, IBaseEventListener>();
 
     /// <summary>
-    /// Ìí¼ÓÊÂ¼ş¼àÌı
+    /// æ·»åŠ äº‹ä»¶ç›‘å¬
     /// </summary>
-    /// <param name="name">ÊÂ¼şµÄÃû×Ö</param>
-    /// <param name="action">×¼±¸ÓÃÀ´´¦ÀíÊÂ¼şµÄÎ¯ÍĞº¯Êı</param>
+    /// <param name="name">äº‹ä»¶çš„åå­—</param>
+    /// <param name="action">å‡†å¤‡ç”¨æ¥å¤„ç†äº‹ä»¶çš„å§”æ‰˜å‡½æ•°</param>
     public void AddEventListener<T>(string name, UnityAction<T> action)
     {
-        // ÓĞÃ»ÓĞ¶ÔÓ¦µÄÊÂ¼ş¼àÌı
-        // ÓĞµÄÇé¿ö
+        // æœ‰æ²¡æœ‰å¯¹åº”çš„äº‹ä»¶ç›‘å¬
+        // æœ‰çš„æƒ…å†µ
         if (baseEventListenerDictionary.ContainsKey(name))
         {
             (baseEventListenerDictionary[name] as BaseEventListener<T>).actions += action;
         }
-        // Ã»ÓĞµÄÇé¿ö
+        // æ²¡æœ‰çš„æƒ…å†µ
         else
         {
             baseEventListenerDictionary.Add(name, new BaseEventListener<T>(action));
@@ -29,19 +29,19 @@ public class BaseEventManager : BaseSingletonInCSharp<BaseEventManager>
     }
 
     /// <summary>
-    /// ¼àÌı²»ĞèÒª²ÎÊı´«µİµÄÊÂ¼ş
+    /// ç›‘å¬ä¸éœ€è¦å‚æ•°ä¼ é€’çš„äº‹ä»¶
     /// </summary>
-    /// <param name="name">ÊÂ¼şµÄÃû×Ö</param>
-    /// <param name="action">ÓÃÀ´´¦ÀíÊÂ¼şµÄÎ¯ÍĞº¯Êı</param>
+    /// <param name="name">äº‹ä»¶çš„åå­—</param>
+    /// <param name="action">ç”¨æ¥å¤„ç†äº‹ä»¶çš„å§”æ‰˜å‡½æ•°</param>
     public void AddEventListener(string name, UnityAction action)
     {
-        // ÓĞÃ»ÓĞ¶ÔÓ¦µÄÊÂ¼ş¼àÌı
-        // ÓĞµÄÇé¿ö
+        // æœ‰æ²¡æœ‰å¯¹åº”çš„äº‹ä»¶ç›‘å¬
+        // æœ‰çš„æƒ…å†µ
         if (baseEventListenerDictionary.ContainsKey(name))
         {
             (baseEventListenerDictionary[name] as BaseEventListener).actions += action;
         }
-        // Ã»ÓĞµÄÇé¿ö
+        // æ²¡æœ‰çš„æƒ…å†µ
         else
         {
             baseEventListenerDictionary.Add(name, new BaseEventListener(action));
@@ -49,10 +49,10 @@ public class BaseEventManager : BaseSingletonInCSharp<BaseEventManager>
     }
 
     /// <summary>
-    /// ÒÆ³ı¶ÔÓ¦µÄÊÂ¼ş¼àÌı
+    /// ç§»é™¤å¯¹åº”çš„äº‹ä»¶ç›‘å¬
     /// </summary>
-    /// <param name="name">ÊÂ¼şµÄÃû×Ö</param>
-    /// <param name="action">¶ÔÓ¦Ö®Ç°Ìí¼ÓµÄÎ¯ÍĞº¯Êı</param>
+    /// <param name="name">äº‹ä»¶çš„åå­—</param>
+    /// <param name="action">å¯¹åº”ä¹‹å‰æ·»åŠ çš„å§”æ‰˜å‡½æ•°</param>
     public void RemoveEventListener<T>(string name, UnityAction<T> action)
     {
         if (baseEventListenerDictionary.ContainsKey(name))
@@ -60,10 +60,10 @@ public class BaseEventManager : BaseSingletonInCSharp<BaseEventManager>
     }
 
     /// <summary>
-    /// ÒÆ³ı²»ĞèÒª²ÎÊıµÄÊÂ¼ş
+    /// ç§»é™¤ä¸éœ€è¦å‚æ•°çš„äº‹ä»¶
     /// </summary>
-    /// <param name="name">ÊÂ¼şµÄÃû×Ö</param>
-    /// <param name="action">¶ÔÓ¦Ö®Ç°Ìí¼ÓµÄÎ¯ÍĞº¯Êı</param>
+    /// <param name="name">äº‹ä»¶çš„åå­—</param>
+    /// <param name="action">å¯¹åº”ä¹‹å‰æ·»åŠ çš„å§”æ‰˜å‡½æ•°</param>
     public void RemoveEventListener(string name, UnityAction action)
     {
         if (baseEventListenerDictionary.ContainsKey(name))
@@ -71,38 +71,38 @@ public class BaseEventManager : BaseSingletonInCSharp<BaseEventManager>
     }
 
     /// <summary>
-    /// ÊÂ¼ş´¥·¢
+    /// äº‹ä»¶è§¦å‘
     /// </summary>
-    /// <param name="name">ÄÄÒ»¸öÃû×ÖµÄÊÂ¼ş´¥·¢ÁË</param>
+    /// <param name="name">å“ªä¸€ä¸ªåå­—çš„äº‹ä»¶è§¦å‘äº†</param>
     public void EventTrigger<T>(string name, T info)
     {
-        // ÓĞÃ»ÓĞ¶ÔÓ¦µÄÊÂ¼ş¼àÌı
-        // ÓĞµÄÇé¿ö
+        // æœ‰æ²¡æœ‰å¯¹åº”çš„äº‹ä»¶ç›‘å¬
+        // æœ‰çš„æƒ…å†µ
         if (baseEventListenerDictionary.ContainsKey(name))
         {
-            // Ê¹ÓÃ null Ìõ¼şÔËËã·û°²È«µØ´¥·¢ÊÂ¼ş
+            // ä½¿ç”¨ null æ¡ä»¶è¿ç®—ç¬¦å®‰å…¨åœ°è§¦å‘äº‹ä»¶
             (baseEventListenerDictionary[name] as BaseEventListener<T>)?.actions?.Invoke(info);
         }
     }
 
     /// <summary>
-    /// ÊÂ¼ş´¥·¢£¨²»ĞèÒª²ÎÊıµÄ£©
+    /// äº‹ä»¶è§¦å‘ï¼ˆä¸éœ€è¦å‚æ•°çš„ï¼‰
     /// </summary>
-    /// <param name="name">ÄÄÒ»¸öÃû×ÖµÄÊÂ¼ş´¥·¢ÁË</param>
+    /// <param name="name">å“ªä¸€ä¸ªåå­—çš„äº‹ä»¶è§¦å‘äº†</param>
     public void EventTrigger(string name)
     {
-        // ÓĞÃ»ÓĞ¶ÔÓ¦µÄÊÂ¼ş¼àÌı
-        // ÓĞµÄÇé¿ö
+        // æœ‰æ²¡æœ‰å¯¹åº”çš„äº‹ä»¶ç›‘å¬
+        // æœ‰çš„æƒ…å†µ
         if (baseEventListenerDictionary.ContainsKey(name))
         {
-            // Ê¹ÓÃ null Ìõ¼şÔËËã·û°²È«µØ´¥·¢ÊÂ¼ş
+            // ä½¿ç”¨ null æ¡ä»¶è¿ç®—ç¬¦å®‰å…¨åœ°è§¦å‘äº‹ä»¶
             (baseEventListenerDictionary[name] as BaseEventListener)?.actions?.Invoke();
         }
     }
 
     /// <summary>
-    /// Çå¿ÕÊÂ¼şÖĞĞÄ
-    /// Ö÷ÒªÓÃÔÚ³¡¾°ÇĞ»»Ê±
+    /// æ¸…ç©ºäº‹ä»¶ä¸­å¿ƒ
+    /// ä¸»è¦ç”¨åœ¨åœºæ™¯åˆ‡æ¢æ—¶
     /// </summary>
     public void Clear()
     {
