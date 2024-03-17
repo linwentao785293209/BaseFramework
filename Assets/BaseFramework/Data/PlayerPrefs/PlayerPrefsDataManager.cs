@@ -8,17 +8,10 @@ using UnityEngine;
 /// <summary>
 /// PlayerPrefs数据管理类 统一管理数据的存储和读取
 /// </summary>
-public class PlayerPrefsDataManager
+public class PlayerPrefsDataManager : BaseSingletonInCSharp<PlayerPrefsDataManager>
 {
     //管理类用单例模式
-    private static PlayerPrefsDataManager instance = new PlayerPrefsDataManager();
-
-    public static PlayerPrefsDataManager Instance
-    {
-        get { return instance; }
-    }
-
-    private PlayerPrefsDataManager()
+    public PlayerPrefsDataManager()
     {
     }
 
