@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 // 基础UI面板类，所有UI面板应该继承自此类
-public abstract class BaseUIPanel : MonoBehaviour
+public abstract class BaseUGUIPanel : MonoBehaviour
 {
     private CanvasGroup canvasGroup; // 用于控制UI面板的淡入淡出效果的CanvasGroup组件
     private float alphaSpeed = 10; // 淡入淡出的速度

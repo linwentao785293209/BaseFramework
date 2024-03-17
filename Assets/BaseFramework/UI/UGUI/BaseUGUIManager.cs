@@ -5,13 +5,13 @@ using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
 // 基础UI管理器类，用于管理UI面板的创建、显示和隐藏
-public class BaseUIManager : BaseSingletonInCSharp<BaseUIManager>
+public class BaseUGUIManager : BaseSingletonInCSharp<BaseUGUIManager>
 {
-    private Dictionary<string, BaseUIPanel> panelDictionary = new Dictionary<string, BaseUIPanel>(); // 存储面板的容器
+    private Dictionary<string, BaseUGUIPanel> panelDictionary = new Dictionary<string, BaseUGUIPanel>(); // 存储面板的容器
 
     private Transform UICanvasTransform; // Canvas对象的引用
 
-    public BaseUIManager()
+    public BaseUGUIManager()
     {
         // 在构造函数中获取Canvas对象
 
@@ -42,7 +42,7 @@ public class BaseUIManager : BaseSingletonInCSharp<BaseUIManager>
     }
 
     // 显示面板
-    public T ShowPanel<T>() where T : BaseUIPanel
+    public T ShowPanel<T>() where T : BaseUGUIPanel
     {
         string panelName = typeof(T).Name;
 
@@ -71,7 +71,7 @@ public class BaseUIManager : BaseSingletonInCSharp<BaseUIManager>
     }
 
     // 隐藏面板
-    public void HidePanel<T>(bool isFade = true) where T : BaseUIPanel
+    public void HidePanel<T>(bool isFade = true) where T : BaseUGUIPanel
     {
         string panelName = typeof(T).Name;
 
@@ -100,7 +100,7 @@ public class BaseUIManager : BaseSingletonInCSharp<BaseUIManager>
     }
 
     // 获取面板
-    public T GetPanel<T>() where T : BaseUIPanel
+    public T GetPanel<T>() where T : BaseUGUIPanel
     {
         string panelName = typeof(T).Name;
         if (panelDictionary.ContainsKey(panelName))
