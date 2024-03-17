@@ -10,7 +10,8 @@ public class BaseInputManager : BaseSingletonInCSharp<BaseInputManager>
     // 构造函数，在 BaseMonoBehaviourManager 的 OnUpdate 中添加输入检测
     public BaseInputManager()
     {
-        BaseMonoBehaviourManager.Instance.AddBaseLifeCycleManagerListener<BaseLifeCycleUpdateManager>(OnUpdateCheckInput);
+        BaseMonoBehaviourManager.Instance.AddBaseLifeCycleManagerListener<BaseLifeCycleUpdateManager>(
+            OnUpdateCheckInput);
     }
 
     // 设置是否进行输入检测
@@ -40,6 +41,5 @@ public class BaseInputManager : BaseSingletonInCSharp<BaseInputManager>
                 BaseEventManager.Instance.EventTrigger<KeyCode>("OnGetKeyUp", keyCode);
             }
         }
-
     }
 }

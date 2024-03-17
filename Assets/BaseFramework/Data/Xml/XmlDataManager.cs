@@ -8,10 +8,6 @@ using UnityEngine;
 //XML数据管理类
 public class XmlDataManager : BaseSingletonInCSharp<XmlDataManager>
 {
-    public XmlDataManager()
-    {
-    }
-
     /// <summary>
     /// 将数据对象序列化之后保存到xml格式文件中。
     /// </summary>

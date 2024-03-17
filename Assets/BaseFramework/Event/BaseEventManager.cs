@@ -6,7 +6,8 @@ public class BaseEventManager : BaseSingletonInCSharp<BaseEventManager>
 {
     // key —— 事件的名字（比如：怪物死亡，玩家死亡，通关等等）
     // value —— 对应的是监听这个事件对应的委托函数们
-    private Dictionary<string, IBaseEventListener> baseEventListenerDictionary = new Dictionary<string, IBaseEventListener>();
+    private Dictionary<string, IBaseEventListener> baseEventListenerDictionary =
+        new Dictionary<string, IBaseEventListener>();
 
     /// <summary>
     /// 添加事件监听

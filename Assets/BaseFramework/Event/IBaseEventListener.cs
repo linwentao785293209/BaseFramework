@@ -3,7 +3,6 @@ using UnityEngine.Events;
 // 事件监听器接口
 public interface IBaseEventListener
 {
-
 }
 
 // 泛型事件监听器

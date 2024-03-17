@@ -1,4 +1,5 @@
 // 定义一个泛型基类 BaseSingletonInCSharp，要求泛型类型 T 必须是引用类型（class）并且具有无参数构造函数（new()）
+
 public class BaseSingletonInCSharp<T> where T : class, new()
 {
     // 用于存储单例实例的私有静态字段
@@ -26,6 +27,7 @@ public class BaseSingletonInCSharp<T> where T : class, new()
                     }
                 }
             }
+
             // 返回单例实例
             return instance;
         }

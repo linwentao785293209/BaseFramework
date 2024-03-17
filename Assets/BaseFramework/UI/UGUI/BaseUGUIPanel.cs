@@ -61,10 +61,7 @@ public abstract class BaseUGUIPanel : MonoBehaviour
             //如果是按钮控件
             if (controls[i] is Button)
             {
-                (controls[i] as Button).onClick.AddListener(() =>
-                {
-                    OnButtonInitClick(objName);
-                });
+                (controls[i] as Button).onClick.AddListener(() => { OnButtonInitClick(objName); });
             }
 
             //如果是单选框或者多选框
@@ -81,13 +78,11 @@ public abstract class BaseUGUIPanel : MonoBehaviour
     //按钮初始化时的监听函数 重写后 分支判断名字执行不同逻辑
     protected virtual void OnButtonInitClick(string btnName)
     {
-
     }
 
     //多选框初始化时的监听函数 重写后 分支判断名字执行不同逻辑
     protected virtual void OnToggleInitValueChanged(string toggleName, bool value)
     {
-
     }
 
     /// <summary>

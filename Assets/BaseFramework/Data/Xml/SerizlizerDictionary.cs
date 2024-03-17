@@ -33,6 +33,7 @@ public class SerizlizerDictionary<TKey, TValue> : Dictionary<TKey, TValue>, IXml
             // 将键和值添加到字典中
             this.Add(key, value);
         }
+
         // 要跳过尾节点 避免影响之后的数据读取
         xmlReader.Read();
     }

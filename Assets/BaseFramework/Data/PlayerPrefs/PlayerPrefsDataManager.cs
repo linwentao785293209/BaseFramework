@@ -10,11 +10,6 @@ using UnityEngine;
 /// </summary>
 public class PlayerPrefsDataManager : BaseSingletonInCSharp<PlayerPrefsDataManager>
 {
-    //管理类用单例模式
-    public PlayerPrefsDataManager()
-    {
-    }
-
     /// <summary>
     /// 存储数据
     /// </summary>

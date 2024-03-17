@@ -11,7 +11,8 @@ using UnityEngine.Internal;
 public class BaseMonoBehaviourManager : BaseSingletonInMonoBehaviour<BaseMonoBehaviourManager>
 {
     // 用于存储各种生命周期事件管理器的字典。
-    private Dictionary<Type, BaseLifeCycleManager> baseLifeCycleManagerDictionary = new Dictionary<Type, BaseLifeCycleManager>();
+    private Dictionary<Type, BaseLifeCycleManager> baseLifeCycleManagerDictionary =
+        new Dictionary<Type, BaseLifeCycleManager>();
 
     private BaseCoroutineManager baseCoroutineManager;
 
@@ -82,7 +83,8 @@ public class BaseMonoBehaviourManager : BaseSingletonInMonoBehaviour<BaseMonoBeh
     {
         Type baseLifeCycleManagerType = typeof(T);
 
-        if (baseLifeCycleManagerDictionary.TryGetValue(baseLifeCycleManagerType, out BaseLifeCycleManager nowBaseLifeCycleManager))
+        if (baseLifeCycleManagerDictionary.TryGetValue(baseLifeCycleManagerType,
+                out BaseLifeCycleManager nowBaseLifeCycleManager))
         {
             // 销毁生命周期事件管理器的 GameObject。
             Destroy(nowBaseLifeCycleManager.gameObject);

@@ -1,4 +1,5 @@
 // 引入Unity引擎的命名空间
+
 using UnityEngine;
 
 // 声明一个泛型类 BaseSingletonInMonoBehaviour<T>

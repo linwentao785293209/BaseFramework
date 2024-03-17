@@ -7,7 +7,8 @@ using UnityEngine.Events;
 public class BaseGameObjectPoolManager : BaseSingletonInCSharp<BaseGameObjectPoolManager>
 {
     // 存储游戏对象池的字典，键为游戏对象的资源路径，值为游戏对象池
-    private Dictionary<string, BaseGameObjectPool> baseGameObjectPoolDictionary = new Dictionary<string, BaseGameObjectPool>();
+    private Dictionary<string, BaseGameObjectPool> baseGameObjectPoolDictionary =
+        new Dictionary<string, BaseGameObjectPool>();
 
     // 游戏对象池管理器的根节点
     private GameObject baseGameObjectPoolManagerNode;
@@ -16,7 +17,8 @@ public class BaseGameObjectPoolManager : BaseSingletonInCSharp<BaseGameObjectPoo
     public void GetGameObject(string gameObjectPath, UnityAction<GameObject> callBack)
     {
         // 检查游戏对象池字典中是否包含指定资源路径的对象池，并且对象池中是否有可用的游戏对象
-        if (baseGameObjectPoolDictionary.ContainsKey(gameObjectPath) && baseGameObjectPoolDictionary[gameObjectPath].baseGameObjectPoolGameObjectList.Count > 0)
+        if (baseGameObjectPoolDictionary.ContainsKey(gameObjectPath) &&
+            baseGameObjectPoolDictionary[gameObjectPath].baseGameObjectPoolGameObjectList.Count > 0)
         {
             // 如果有可用的游戏对象，调用回调函数返回游戏对象
             callBack(baseGameObjectPoolDictionary[gameObjectPath].GetGameObject());
@@ -53,7 +55,8 @@ public class BaseGameObjectPoolManager : BaseSingletonInCSharp<BaseGameObjectPoo
         else
         {
             // 如果不包含，创建一个新的对象池，并添加到对象池字典中
-            baseGameObjectPoolDictionary.Add(gameObjectPath, new BaseGameObjectPool(baseGameObjectPoolManagerNode, gameObjectPath, gameObject));
+            baseGameObjectPoolDictionary.Add(gameObjectPath,
+                new BaseGameObjectPool(baseGameObjectPoolManagerNode, gameObjectPath, gameObject));
         }
     }
 

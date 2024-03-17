@@ -120,7 +120,8 @@ public class BaseUGUIManager : BaseSingletonInCSharp<BaseUGUIManager>
     /// <param name="uIElement">控件对象</param>
     /// <param name="eventTriggerType">事件类型</param>
     /// <param name="callBack">事件的响应函数</param>
-    public static void AddCustomEventListener(UIBehaviour uIElement, EventTriggerType eventTriggerType, UnityAction<BaseEventData> callBack)
+    public static void AddCustomEventListener(UIBehaviour uIElement, EventTriggerType eventTriggerType,
+        UnityAction<BaseEventData> callBack)
     {
         EventTrigger trigger = uIElement.GetComponent<EventTrigger>();
         if (trigger == null)
