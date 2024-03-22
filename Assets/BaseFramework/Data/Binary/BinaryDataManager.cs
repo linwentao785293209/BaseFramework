@@ -10,33 +10,34 @@ using UnityEngine;
 /// <summary>
 /// 2进制数据管理器
 /// </summary>
-public class BinaryDataMgr : BaseSingletonInCSharp<BinaryDataMgr>
+public class BinaryDataManager : BaseSingletonInCSharp<BinaryDataManager>
 {
     /// <summary>
-    /// 2进制数据存储位置路径
+    /// 数据存储路径
     /// </summary>
-    public static string DATA_BINARY_PATH = Application.streamingAssetsPath + "/Binary/";
+    private static string DATA_SAVE_PATH = Application.persistentDataPath + "/Data/Binary/";
+
+    /// <summary>
+    /// 配置存储路径
+    /// </summary>
+    public static string CONFIG_SAVE_PATH = Application.streamingAssetsPath + "/Data/Binary/";
+
 
     /// <summary>
     /// 用于存储所有Excel表数据的容器
     /// </summary>
     private Dictionary<string, object> tableDic = new Dictionary<string, object>();
 
-    /// <summary>
-    /// 数据存储的位置
-    /// </summary>
-    private static string SAVE_PATH = Application.persistentDataPath + "/Data/";
-    
 
     /// <summary>
     /// 加载Excel表的2进制数据到内存中 
     /// </summary>
     /// <typeparam name="T">容器类名</typeparam>
     /// <typeparam name="K">数据结构类类名</typeparam>
-    public void LoadTable<T,K>()
+    public void LoadTable<T, K>()
     {
         //读取 对应路径下 excel表对应的2进制文件 来进行解析
-        using (FileStream fs = File.Open(DATA_BINARY_PATH + typeof(K).Name + ".tao", FileMode.Open, FileAccess.Read))
+        using (FileStream fs = File.Open(CONFIG_SAVE_PATH + typeof(K).Name + ".tao", FileMode.Open, FileAccess.Read))
         {
             //把所有的文件流数据存到直接数组综合
             byte[] bytes = new byte[fs.Length];
@@ -81,7 +82,7 @@ public class BinaryDataMgr : BaseSingletonInCSharp<BinaryDataMgr>
                 //遍历所有字段信息 
                 foreach (FieldInfo info in infos)
                 {
-                    if( info.FieldType == typeof(int) )
+                    if (info.FieldType == typeof(int))
                     {
                         //相当于就是把2进制数据转为int 然后赋值给了实例化一个数据结构类的对象的对应的字段
                         info.SetValue(dataObj, BitConverter.ToInt32(bytes, index));
@@ -155,10 +156,11 @@ public class BinaryDataMgr : BaseSingletonInCSharp<BinaryDataMgr>
     public void Save(object obj, string fileName)
     {
         //先判断路径文件夹有没有
-        if (!Directory.Exists(SAVE_PATH))
-            Directory.CreateDirectory(SAVE_PATH);
+        if (!Directory.Exists(DATA_SAVE_PATH))
+            Directory.CreateDirectory(DATA_SAVE_PATH);
 
-        using (FileStream fs = new FileStream(SAVE_PATH + fileName + ".tao", FileMode.OpenOrCreate, FileAccess.Write))
+        using (FileStream fs = new FileStream(DATA_SAVE_PATH + fileName + ".tao", FileMode.OpenOrCreate,
+                   FileAccess.Write))
         {
             BinaryFormatter bf = new BinaryFormatter();
             bf.Serialize(fs, obj);
@@ -172,14 +174,14 @@ public class BinaryDataMgr : BaseSingletonInCSharp<BinaryDataMgr>
     /// <typeparam name="T"></typeparam>
     /// <param name="fileName"></param>
     /// <returns></returns>
-    public T Load<T>(string fileName) where T:class
+    public T Load<T>(string fileName) where T : class
     {
         //如果不存在这个文件 就直接返回泛型对象的默认值
-        if( !File.Exists(SAVE_PATH + fileName + ".tao") )
+        if (!File.Exists(DATA_SAVE_PATH + fileName + ".tao"))
             return default(T);
 
         T obj;
-        using (FileStream fs = File.Open(SAVE_PATH + fileName + ".tao", FileMode.Open, FileAccess.Read))
+        using (FileStream fs = File.Open(DATA_SAVE_PATH + fileName + ".tao", FileMode.Open, FileAccess.Read))
         {
             BinaryFormatter bf = new BinaryFormatter();
             obj = bf.Deserialize(fs) as T;

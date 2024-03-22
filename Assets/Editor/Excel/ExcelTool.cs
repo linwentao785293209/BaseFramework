@@ -137,11 +137,11 @@ public class ExcelTool
     private static void GenerateExcelBinary(DataTable table)
     {
         //没有路径创建路径
-        if (!Directory.Exists(BinaryDataMgr.DATA_BINARY_PATH))
-            Directory.CreateDirectory(BinaryDataMgr.DATA_BINARY_PATH);
+        if (!Directory.Exists(BinaryDataManager.CONFIG_SAVE_PATH))
+            Directory.CreateDirectory(BinaryDataManager.CONFIG_SAVE_PATH);
 
         //创建一个2进制文件进行写入
-        using (FileStream fs = new FileStream(BinaryDataMgr.DATA_BINARY_PATH + table.TableName + ".tao", FileMode.OpenOrCreate, FileAccess.Write))
+        using (FileStream fs = new FileStream(BinaryDataManager.CONFIG_SAVE_PATH + table.TableName + ".tao", FileMode.OpenOrCreate, FileAccess.Write))
         {
             //存储具体的excel对应的2进制信息
             //1.先要存储我们需要写多少行的数据 方便我们读取
