@@ -12,7 +12,7 @@ namespace BaseFramework
     /// <summary>
     /// 2进制数据管理器
     /// </summary>
-    public class BinaryDataManager : BaseSingletonInCSharp<BinaryDataManager>
+    public class BaseBinaryDataManager : BaseSingletonInCSharp<BaseBinaryDataManager>
     {
         /// <summary>
         /// 数据存储路径

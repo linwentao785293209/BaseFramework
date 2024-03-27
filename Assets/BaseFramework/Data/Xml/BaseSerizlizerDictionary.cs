@@ -8,7 +8,7 @@ using UnityEngine;
 namespace BaseFramework
 {
     // 这是一个继承自Dictionary，实现了IXmlSerializable接口的自定义字典类型，用于XML序列化和反序列化键值对数据。
-    public class SerizlizerDictionary<TKey, TValue> : Dictionary<TKey, TValue>, IXmlSerializable
+    public class BaseSerizlizerDictionary<TKey, TValue> : Dictionary<TKey, TValue>, IXmlSerializable
     {
         // 返回空值。GetSchema方法是必须由接口 IXMlSerializable实现的方法，但在此类中不需要使用它。
         public XmlSchema GetSchema()

@@ -7,19 +7,12 @@ using UnityEngine;
 
 namespace BaseFramework
 {
-    /// <summary>
-    /// 序列化和反序列化Json时  使用的是哪种方案
-    /// </summary>
-    public enum JsonType
-    {
-        JsonUtlity,
-        LitJson,
-    }
+
 
     /// <summary>
     /// Json数据管理类 主要用于进行 Json的序列化存储到硬盘 和 反序列化从硬盘中读取到内存中
     /// </summary>
-    public class JsonDataManager : BaseSingletonInCSharp<JsonDataManager>
+    public class BaseJsonDataManager : BaseSingletonInCSharp<BaseJsonDataManager>
     {
         /// <summary>
         /// 数据存储路径
@@ -33,7 +26,7 @@ namespace BaseFramework
 
 
         //存储Json数据 序列化
-        public void SaveData(object data, string fileName, JsonType type = JsonType.LitJson)
+        public void SaveData(object data, string fileName, EBaseJsonType type = EBaseJsonType.LitJson)
         {
             //确定存储路径
             string path = DATA_SAVE_PATH + fileName + ".json";
@@ -41,10 +34,10 @@ namespace BaseFramework
             string jsonStr = "";
             switch (type)
             {
-                case JsonType.JsonUtlity:
+                case EBaseJsonType.JsonUtlity:
                     jsonStr = JsonUtility.ToJson(data);
                     break;
-                case JsonType.LitJson:
+                case EBaseJsonType.LitJson:
                     jsonStr = JsonMapper.ToJson(data);
                     break;
             }
@@ -54,7 +47,7 @@ namespace BaseFramework
         }
 
         //读取指定文件中的 Json数据 反序列化
-        public T LoadData<T>(string fileName, JsonType type = JsonType.LitJson) where T : new()
+        public T LoadData<T>(string fileName, EBaseJsonType type = EBaseJsonType.LitJson) where T : new()
         {
             //确定从哪个路径读取
             //首先先判断 默认数据文件夹中是否有我们想要的数据 如果有 就从中获取
@@ -73,10 +66,10 @@ namespace BaseFramework
             T data = default(T);
             switch (type)
             {
-                case JsonType.JsonUtlity:
+                case EBaseJsonType.JsonUtlity:
                     data = JsonUtility.FromJson<T>(jsonStr);
                     break;
-                case JsonType.LitJson:
+                case EBaseJsonType.LitJson:
                     data = JsonMapper.ToObject<T>(jsonStr);
                     break;
             }

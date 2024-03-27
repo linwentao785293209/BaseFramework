@@ -8,7 +8,7 @@ using UnityEngine;
 namespace BaseFramework
 {
     //XML数据管理类
-    public class XmlDataManager : BaseSingletonInCSharp<XmlDataManager>
+    public class BaseXmlDataManager : BaseSingletonInCSharp<BaseXmlDataManager>
     {
         /// <summary>
         /// 数据存储路径

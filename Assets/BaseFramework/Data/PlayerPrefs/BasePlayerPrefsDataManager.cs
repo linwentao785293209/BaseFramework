@@ -10,7 +10,7 @@ namespace BaseFramework
     /// <summary>
     /// PlayerPrefs数据管理类 统一管理数据的存储和读取
     /// </summary>
-    public class PlayerPrefsDataManager : BaseSingletonInCSharp<PlayerPrefsDataManager>
+    public class BasePlayerPrefsDataManager : BaseSingletonInCSharp<BasePlayerPrefsDataManager>
     {
         /// <summary>
         /// 存储数据

@@ -10,7 +10,7 @@ using UnityEngine;
 
 namespace BaseFramework
 {
-    public class ExcelTool
+    public class BaseExcelTool
     {
         /// <summary>
         /// excel文件存放的路径
@@ -138,11 +138,11 @@ namespace BaseFramework
         private static void GenerateExcelBinary(DataTable table)
         {
             //没有路径创建路径
-            if (!Directory.Exists(BinaryDataManager.CONFIG_SAVE_PATH))
-                Directory.CreateDirectory(BinaryDataManager.CONFIG_SAVE_PATH);
+            if (!Directory.Exists(BaseBinaryDataManager.CONFIG_SAVE_PATH))
+                Directory.CreateDirectory(BaseBinaryDataManager.CONFIG_SAVE_PATH);
 
             //创建一个2进制文件进行写入
-            using (FileStream fs = new FileStream(BinaryDataManager.CONFIG_SAVE_PATH + table.TableName + ".tao",
+            using (FileStream fs = new FileStream(BaseBinaryDataManager.CONFIG_SAVE_PATH + table.TableName + ".tao",
                        FileMode.OpenOrCreate, FileAccess.Write))
             {
                 //存储具体的excel对应的2进制信息
