@@ -17,12 +17,12 @@ namespace BaseFramework
         /// <summary>
         /// 数据存储路径
         /// </summary>
-        private static string DATA_SAVE_PATH = Application.persistentDataPath + "/Data/Binary/";
+        private static string DATA_SAVE_PATH = Application.persistentDataPath + "/BaseFramework/Data/Binary/";
 
         /// <summary>
         /// 配置存储路径
         /// </summary>
-        public static string CONFIG_SAVE_PATH = Application.streamingAssetsPath + "/Data/Binary/";
+        public static string CONFIG_SAVE_PATH = Application.streamingAssetsPath + "/BaseFramework/Data/Binary/";
 
 
         /// <summary>
