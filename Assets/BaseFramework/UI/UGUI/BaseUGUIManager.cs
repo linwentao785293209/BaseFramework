@@ -13,7 +13,7 @@ namespace BaseFramework
 
         private Transform UICanvasTransform; // Canvas对象的引用
 
-        public static string UI_SAVE_PATH = "BaseFramework/UI/UGUI/";
+        public  const string UI_SAVE_PATH = "BaseFramework/UI/UGUI/";
         
         public BaseUGUIManager()
         {
@@ -46,7 +46,7 @@ namespace BaseFramework
         }
 
         // 显示面板
-        public T ShowPanel<T>() where T : BaseUGUIPanel
+        public T ShowPanel<T>(string path = UI_SAVE_PATH) where T : BaseUGUIPanel
         {
             string panelName = typeof(T).Name;
 
@@ -56,7 +56,7 @@ namespace BaseFramework
             }
 
             // 加载面板预制体
-            GameObject panelObj = GameObject.Instantiate(Resources.Load<GameObject>(UI_SAVE_PATH + panelName));
+            GameObject panelObj = GameObject.Instantiate(Resources.Load<GameObject>(path + panelName));
             panelObj.transform.SetParent(UICanvasTransform, false);
 
             // 获取面板脚本
