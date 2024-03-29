@@ -11,9 +11,10 @@ namespace BaseFramework
     {
         private Dictionary<string, BaseUGUIPanel> panelDictionary = new Dictionary<string, BaseUGUIPanel>(); // 存储面板的容器
 
-        private Transform UICanvasTransform; // Canvas对象的引用
+        private Transform UGUICanvasTransform; // Canvas对象的引用
 
         public  const string UI_SAVE_PATH = "BaseFramework/UI/UGUI/";
+        public  const string CANVAS_NAME = "UGUICanvas";
         
         public BaseUGUIManager()
         {
@@ -21,27 +22,27 @@ namespace BaseFramework
 
             try
             {
-                UICanvasTransform = GameObject.Find("UICanvas").transform;
+                UGUICanvasTransform = GameObject.Find(CANVAS_NAME).transform;
 
                 Debug.Log("UICanvas have found.");
             }
             catch
             {
-                if (UICanvasTransform == null)
+                if (UGUICanvasTransform == null)
                 {
-                    UICanvasTransform = GameObject.Instantiate(Resources.Load<GameObject>("UI/UICanvas")).transform;
+                    UGUICanvasTransform = GameObject.Instantiate(Resources.Load<GameObject>(UI_SAVE_PATH+CANVAS_NAME)).transform;
 
-                    Debug.Log("UICanvas Instantiate.");
+                    Debug.Log(CANVAS_NAME + "Instantiate.");
                 }
             }
 
-            if (UICanvasTransform == null)
+            if (UGUICanvasTransform == null)
             {
-                Debug.LogError("UICanvas not found.");
+                Debug.LogError(CANVAS_NAME + " not found.");
             }
             else
             {
-                GameObject.DontDestroyOnLoad(UICanvasTransform.gameObject);
+                GameObject.DontDestroyOnLoad(UGUICanvasTransform.gameObject);
             }
         }
 
@@ -57,7 +58,7 @@ namespace BaseFramework
 
             // 加载面板预制体
             GameObject panelObj = GameObject.Instantiate(Resources.Load<GameObject>(path + panelName));
-            panelObj.transform.SetParent(UICanvasTransform, false);
+            panelObj.transform.SetParent(UGUICanvasTransform, false);
 
             // 获取面板脚本
             T panel = panelObj.GetComponent<T>();
