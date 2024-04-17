@@ -119,6 +119,20 @@ namespace BaseFramework
             }
         }
 
+        // 是否有该面板
+        public bool HasPanel<T>() where T : BaseUGUIPanel
+        {
+            string panelName = typeof(T).Name;
+            if (panelDictionary.ContainsKey(panelName))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        
         /// <summary>
         /// 给控件添加自定义事件监听
         /// </summary>
