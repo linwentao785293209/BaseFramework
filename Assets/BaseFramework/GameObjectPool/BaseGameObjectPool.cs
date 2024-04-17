@@ -44,7 +44,7 @@ namespace BaseFramework
             baseGameObjectPoolGameObjectList.Add(gameObject);
 
             // 将游戏对象的父节点设为对象池的根节点
-            gameObject.transform.parent = baseGameObjectPoolNode.transform;
+            gameObject.transform.SetParent(baseGameObjectPoolNode.transform,false); 
         }
 
         // 从对象池中获取游戏对象
@@ -62,7 +62,8 @@ namespace BaseFramework
             gameObject.SetActive(true);
 
             // 将游戏对象的父节点设为null，使其脱离对象池的控制
-            gameObject.transform.parent = null;
+
+            gameObject.transform.SetParent(null,false);
 
             // 返回获取的游戏对象
             return gameObject;

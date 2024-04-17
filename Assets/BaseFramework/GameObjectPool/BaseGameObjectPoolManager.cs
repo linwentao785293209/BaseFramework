@@ -18,15 +18,19 @@ namespace BaseFramework
         // 从对象池中获取游戏对象的方法，包括资源路径和回调函数
         public void GetGameObject(string gameObjectPath, UnityAction<GameObject> callBack)
         {
+
             // 检查游戏对象池字典中是否包含指定资源路径的对象池，并且对象池中是否有可用的游戏对象
             if (baseGameObjectPoolDictionary.ContainsKey(gameObjectPath) &&
                 baseGameObjectPoolDictionary[gameObjectPath].baseGameObjectPoolGameObjectList.Count > 0)
             {
+                Debug.Log($"从对象池{gameObjectPath}得到对象，" +
+                          $"当前{gameObjectPath}对象池有{ baseGameObjectPoolDictionary[gameObjectPath].baseGameObjectPoolGameObjectList.Count}个对象");
                 // 如果有可用的游戏对象，调用回调函数返回游戏对象
                 callBack(baseGameObjectPoolDictionary[gameObjectPath].GetGameObject());
             }
             else
             {
+                Debug.Log($"对象池{gameObjectPath}没有对象,异步加载得到对象");
                 // 如果没有可用的游戏对象，通过资源管理器异步加载游戏对象
                 BaseResourceManager.Instance.LoadAsync<GameObject>(gameObjectPath, (gameObject) =>
                 {
@@ -60,6 +64,9 @@ namespace BaseFramework
                 baseGameObjectPoolDictionary.Add(gameObjectPath,
                     new BaseGameObjectPool(baseGameObjectPoolManagerNode, gameObjectPath, gameObject));
             }
+            
+            Debug.Log($"释放对象到对象池{gameObjectPath}，" +
+                      $"当前{gameObjectPath}对象池有{ baseGameObjectPoolDictionary[gameObjectPath].baseGameObjectPoolGameObjectList.Count}个对象");
         }
 
         // 清空游戏对象池管理器的方法
